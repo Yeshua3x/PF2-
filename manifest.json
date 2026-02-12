@@ -1,15 +1,20 @@
 {
-  "name": "PF Concursos",
+  "name": "Quiz Concurso Polícia Federal",
   "short_name": "Concursos",
-  "start_url": "index.html",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#111827",
+  "background_color": "#f4f4f9",
+  "theme_color": "#007BFF",
   "orientation": "portrait",
   "icons": [
     {
       "src": "icon-192x192.png",
       "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-256x256.png",
+      "sizes": "256x256",
       "type": "image/png"
     },
     {
