@@ -1,7 +1,7 @@
 {
   "name": "Quiz Concurso Polícia Federal",
   "short_name": "Concursos",
-  "start_url": "./index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#f4f4f9",
   "theme_color": "#007BFF",
