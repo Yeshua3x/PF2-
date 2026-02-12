@@ -1,387 +1,314 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simulado Polícia Federal - Avançado</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Concurso Polícia Federal</title>
 
-<style>
-body{
-    font-family: Arial, sans-serif;
-    background:#0f172a;
-    color:white;
-    margin:0;
-    text-align:center;
-}
-header{
-    background:#111827;
-    padding:15px;
-    font-size:22px;
-    font-weight:bold;
-}
-.container{ padding:20px; }
+    <!-- Bootstrap CSS -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/png" href="icon-192x192.png" />
+    <link rel="apple-touch-icon" href="icon-192x192.png" />
+    <meta name="theme-color" content="#007BFF" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
 
-button{
-    padding:10px 15px;
-    margin:5px;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-    font-weight:bold;
-}
+        .quiz-container {
+            margin-top: 50px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-.discipline-btn{ background:#1e40af; color:white; }
-.option-btn{ background:#374151; color:white; width:80%; display:block; margin:10px auto; }
-.option-btn:hover{ background:#2563eb; }
+        .question {
+            font-size: 20px;
+        }
 
-#timer,#score{ font-size:18px; margin-bottom:10px; }
+        .options li {
+            margin: 10px 0;
+        }
 
-.card{
-    background:#1f2937;
-    padding:15px;
-    border-radius:10px;
-    margin:10px auto;
-    width:90%;
-    max-width:600px;
-}
-</style>
+        .timer {
+            font-size: 18px;
+            color: #ff5733;
+        }
+
+        .result {
+            display: none;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 
-<header>Simulado Concurso Polícia Federal</header>
+    <div class="container quiz-container">
+        <h1 class="text-center">Quiz - Concurso Polícia Federal</h1>
 
-<div class="container">
+        <!-- Pontuação e Temporizador -->
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Pontuação:</strong> <span id="score">0</span> de <span id="total-questions">0</span></p>
+            </div>
+            <div class="col-md-6 text-end">
+                <p class="timer" id="timer">Tempo: <span id="time">20</span>s</p>
+            </div>
+        </div>
 
-<div id="menu">
-<h3>Escolha a Disciplina</h3>
+        <div id="quiz">
+            <div class="question" id="question"></div>
+            <ul class="options list-unstyled" id="options"></ul>
+            <button id="next-btn" class="btn btn-primary mt-3" onclick="nextQuestion()">Próxima Pergunta</button>
+        </div>
 
-<button class="discipline-btn" onclick="startQuiz('Portugues')">Português</button>
-<button class="discipline-btn" onclick="startQuiz('Constitucional')">Constitucional</button>
-<button class="discipline-btn" onclick="startQuiz('Penal')">Penal</button>
-<button class="discipline-btn" onclick="startQuiz('Informatica')">Informática</button>
+        <div class="result" id="result">
+            <p id="result-text"></p>
+            <button class="btn btn-secondary" onclick="reloadQuiz()">Reiniciar Quiz</button>
+        </div>
+    </div>
 
-<hr>
-<h3>Modo Simulado Completo</h3>
-<button class="discipline-btn" onclick="startSimulado()">Iniciar Simulado Geral</button>
+    
 
-</div>
+    <script>
+            const questions = [
+    {
+        question: "Qual é a principal função da Polícia Federal?",
+        options: [
+            "Manter a segurança pública",
+            "Investigar crimes federais",
+            "Trabalhar em conjunto com a Polícia Militar",
+            "Fazer o policiamento nas rodovias"
+        ],
+        correct: 1
+    },
+    {
+        question: "Qual das alternativas é uma função da Polícia Federal no combate ao crime organizado?",
+        options: [
+            "Prevenir crimes locais",
+            "Combater o tráfico internacional de drogas",
+            "Fiscalizar a alimentação de presídios",
+            "Realizar segurança de eventos esportivos"
+        ],
+        correct: 1
+    },
+    {
+        question: "O que é necessário para se tornar um policial federal?",
+        options: [
+            "Ter nível superior em qualquer área",
+            "Ser aprovado no concurso público",
+            "Ter 18 anos",
+            "Ter curso de formação específico em qualquer instituição"
+        ],
+        correct: 1
+    },
+    {
+        question: "Nos termos da Constituição Federal, compete à Polícia Federal:",
+        options: [
+            "Apurar infrações penais, exceto as de natureza política",
+            "Exercer, com exclusividade, as funções de polícia judiciária da União",
+            "Realizar o policiamento ostensivo nas rodovias federais",
+            "Julgar crimes praticados contra bens da União"
+        ],
+        correct: 1
+    },
+    {
+        question: "De acordo com a Lei nº 12.850/2013, considera-se organização criminosa a associação de:",
+        options: [
+            "3 ou mais pessoas com o fim de cometer crimes",
+            "4 ou mais pessoas estruturalmente ordenada e com divisão de tarefas",
+            "5 ou mais pessoas armadas",
+            "2 ou mais pessoas com estabilidade permanente"
+        ],
+        correct: 1
+    },
+    {
+        question: "Segundo o Código de Processo Penal, o inquérito policial é:",
+        options: [
+            "Processo judicial destinado à condenação do réu",
+            "Procedimento administrativo inquisitivo destinado à apuração da infração penal",
+            "Procedimento contraditório com ampla defesa",
+            "Ação penal promovida pelo Ministério Público"
+        ],
+        correct: 1
+    },
+    {
+        question: "Nos crimes de competência da Justiça Federal, a atribuição para presidir o inquérito policial é:",
+        options: [
+            "Da Polícia Civil",
+            "Da Polícia Militar",
+            "Da Polícia Federal",
+            "Do Ministério Público Federal"
+        ],
+        correct: 2
+    },
+    {
+        question: "De acordo com a Lei de Drogas (Lei nº 11.343/2006), o tráfico internacional de drogas é caracterizado quando:",
+        options: [
+            "A droga é comercializada em mais de um estado",
+            "Há envolvimento de organização criminosa",
+            "A conduta envolve entrada ou saída de droga do território nacional",
+            "O agente é reincidente específico"
+        ],
+        correct: 2
+    },
+    {
+        question: "Sobre a colaboração premiada, é correto afirmar que:",
+        options: [
+            "Depende exclusivamente da vontade do delegado de polícia",
+            "Pode resultar em perdão judicial, redução de pena ou substituição por restritiva de direitos",
+            "Somente pode ser firmada após sentença condenatória",
+            "É vedada em crimes hediondos"
+        ],
+        correct: 1
+    },
+    {
+        question: "Nos termos da Lei nº 9.613/1998 (Lavagem de Dinheiro), configura-se lavagem de capitais quando o agente:",
+        options: [
+            "Oculta ou dissimula a natureza, origem ou propriedade de bens provenientes de infração penal",
+            "Pratica qualquer crime contra o sistema financeiro nacional",
+            "Adquire bens lícitos com recursos próprios",
+            "Deixa de declarar imposto de renda"
+        ],
+        correct: 0
+    },
+    {
+        question: "Conforme a Constituição Federal, os crimes políticos e as infrações penais praticadas em detrimento de bens, serviços ou interesses da União são julgados:",
+        options: [
+            "Pela Justiça Estadual",
+            "Pela Justiça Militar",
+            "Pela Justiça Federal",
+            "Pelo Supremo Tribunal Federal"
+        ],
+        correct: 2
+    }
+];
 
-<div id="quizArea" style="display:none;">
-<div id="timer"></div>
-<div id="score"></div>
-<h3 id="question"></h3>
-<div id="options"></div>
-</div>
+        let currentQuestion = 0;
+        let score = 0;
+        let timer = 20; // Tempo para cada pergunta em segundos
+        let interval;
 
-<div id="resultado"></div>
-<div id="ranking"></div>
-<div id="estatisticas"></div>
+        // Função para embaralhar as perguntas
+        function shuffleQuestions(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
 
-</div>
+        // Função para carregar a pergunta e opções
+        function loadQuestion() {
+            const questionObj = questions[currentQuestion];
+            document.getElementById('question').textContent = questionObj.question;
 
-<script>
+            const optionsList = document.getElementById('options');
+            optionsList.innerHTML = '';
+            questionObj.options.forEach((option, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<input type="radio" name="option" value="${index}"> ${option}`;
+                optionsList.appendChild(li);
+            });
 
-/* ============================
-BANCO DE QUESTÕES (MODELO)
-Estrutura pronta para 100+
-============================ */
+            // Atualiza a pontuação e total de perguntas
+            document.getElementById('score').textContent = score;
+            document.getElementById('total-questions').textContent = questions.length;
 
+            // Reseta o timer
+            resetTimer();
+        }
 
-const questions = {
+        // Função para iniciar o timer
+        function startTimer() {
+            interval = setInterval(function () {
+                if (timer > 0) {
+                    timer--;
+                    document.getElementById('time').textContent = timer;
+                } else {
+                    clearInterval(interval);
+                    alert('O tempo acabou!');
+                    nextQuestion();
+                }
+            }, 1000);
+        }
 
-Portugues: [
-{question:"Assinale a frase correta.",options:["Houveram falhas","Houve falhas","Existiu problemas","Fazem anos"],correct:1},
-{question:"A crase ocorre em:",options:["Vou à escola","Vou a escola","Vou ao escola","Vou à estudar"],correct:0},
-{question:"Plural correto de cidadão:",options:["Cidadões","Cidadãos","Cidadães","Cidadãos"],correct:1},
-{question:"Concordância correta:",options:["Os aluno estudam","Os alunos estudam","Os aluno estuda","O alunos estudam"],correct:1},
-{question:"Sinônimo de 'iminente':",options:["Distante","Próximo","Passado","Antigo"],correct:1},
-{question:"Antônimo de 'benevolente':",options:["Bondoso","Caridoso","Maldoso","Gentil"],correct:2},
-{question:"Uso correto da vírgula:",options:["João foi ao mercado e comprou pão.","João foi ao mercado, e comprou pão.","João, foi ao mercado e comprou pão.","João foi ao mercado e, comprou pão."],correct:0},
-{question:"Regência correta:",options:["Assistir o filme","Assistir ao filme","Assistir no filme","Assistir filme"],correct:1},
-{question:"Ortografia correta:",options:["Excessão","Exceção","Excessão","Exessão"],correct:1},
-{question:"Uso correto do porquê:",options:["Por que você saiu?","Porque você saiu?","Por quê você saiu.","Porquê você saiu?"],correct:0},
-{question:"Figura de linguagem que compara:",options:["Metáfora","Hipérbole","Comparação","Ironia"],correct:2},
-{question:"Plural de mau:",options:["Maus","Males","Mauzes","Mauses"],correct:0},
-{question:"Verbo no futuro:",options:["Estudou","Estuda","Estudará","Estudava"],correct:2},
-{question:"Classe de palavra 'rapidamente':",options:["Adjetivo","Advérbio","Substantivo","Pronome"],correct:1},
-{question:"Sujeito da frase pode ser:",options:["Apenas simples","Apenas composto","Simples ou composto","Somente oculto"],correct:2},
-{question:"Conjunção adversativa:",options:["Porque","Mas","Logo","Portanto"],correct:1},
-{question:"Pronome pessoal:",options:["Mesa","Ele","Bonito","Ontem"],correct:1},
-{question:"Tempo verbal passado:",options:["Cantou","Canta","Cantará","Cantando"],correct:0},
-{question:"Uso correto de 'há':",options:["Há dois anos","A dois anos","Há dois ano","A dois ano"],correct:0},
-{question:"Acentuação correta:",options:["Heroi","Herói","Heroí","Héroi"],correct:1}
-],
+        // Função para resetar o timer
+        function resetTimer() {
+            timer = 20;
+            document.getElementById('time').textContent = timer;
+            clearInterval(interval);
+            startTimer();
+        }
 
-Constitucional: [
-{question:"A Constituição é:",options:["Lei ordinária","Norma suprema","Decreto","Portaria"],correct:1},
-{question:"Os direitos fundamentais estão no artigo:",options:["5º","37","144","1º"],correct:0},
-{question:"Compete à PF:",options:["Julgar","Policiamento ostensivo","Polícia judiciária da União","Legislar"],correct:2},
-{question:"Poder Executivo é exercido pelo:",options:["STF","Presidente","Senado","Câmara"],correct:1},
-{question:"Mandado de segurança protege:",options:["Direito líquido e certo","Crime","Patrimônio público","Contrato"],correct:0},
-{question:"Habeas corpus protege:",options:["Patrimônio","Liberdade","Posse","Contrato"],correct:1},
-{question:"Cláusulas pétreas podem ser:",options:["Alteradas","Abolidas","Não abolidas","Ignoradas"],correct:2},
-{question:"Forma de governo do Brasil:",options:["Monarquia","República","Ditadura","Parlamentarismo"],correct:1},
-{question:"Sistema de governo:",options:["Parlamentar","Presidencialista","Monárquico","Oligárquico"],correct:1},
-{question:"Art. 144 trata da:",options:["Educação","Saúde","Segurança pública","Economia"],correct:2},
-{question:"O STF é órgão do:",options:["Executivo","Legislativo","Judiciário","Militar"],correct:2},
-{question:"Direitos sociais estão no art:",options:["6º","5º","37","144"],correct:0},
-{question:"Intervenção federal é competência:",options:["Governador","Prefeito","Presidente","Juiz"],correct:2},
-{question:"Controle de constitucionalidade é feito pelo:",options:["STF","Prefeito","Delegado","Polícia"],correct:0},
-{question:"Emenda constitucional exige:",options:["Maioria simples","Maioria absoluta","3/5","Unanimidade"],correct:2},
-{question:"Nacionalidade pode ser:",options:["Primária ou secundária","Simples","Única","Relativa"],correct:0},
-{question:"Direitos políticos envolvem:",options:["Votar","Comprar","Vender","Estudar"],correct:0},
-{question:"Ministros do STF são indicados pelo:",options:["Senado","Presidente","Câmara","STJ"],correct:1},
-{question:"Separação dos poderes é teoria de:",options:["Kelsen","Montesquieu","Rousseau","Locke"],correct:1},
-{question:"Princípios da administração estão no art:",options:["5º","37","144","1º"],correct:1}
-],
+        // Função para passar para a próxima pergunta
+        function nextQuestion() {
+            const selectedOption = document.querySelector('input[name="option"]:checked');
+            if (!selectedOption) {
+                alert('Por favor, selecione uma opção!');
+                return;
+            }
 
-Penal: [
-{question:"Crime é:",options:["Fato típico ilícito e culpável","Qualquer ato","Erro","Imprudência"],correct:0},
-{question:"Dolo é:",options:["Vontade consciente","Erro","Negligência","Imperícia"],correct:0},
-{question:"Culpa ocorre quando há:",options:["Intenção","Negligência","Vontade","Planejamento"],correct:1},
-{question:"Homicídio está no art:",options:["121","155","157","33"],correct:0},
-{question:"Furto é:",options:["Subtrair coisa alheia","Matar alguém","Fraudar","Corromper"],correct:0},
-{question:"Roubo envolve:",options:["Violência","Apenas subtração","Erro","Negligência"],correct:0},
-{question:"Legítima defesa exclui:",options:["Tipicidade","Ilicitude","Culpabilidade","Dolo"],correct:1},
-{question:"Tentativa ocorre quando:",options:["Crime se consuma","Não inicia","Não consuma por circunstâncias alheias","Há erro"],correct:2},
-{question:"Pena pode ser:",options:["Privativa de liberdade","Somente multa","Advertência","Suspensão política"],correct:0},
-{question:"Concurso de pessoas envolve:",options:["1 pessoa","2 ou mais","Juiz","Delegado"],correct:1},
-{question:"Extorsão é art:",options:["157","158","155","121"],correct:1},
-{question:"Reclusão é:",options:["Pena","Crime","Erro","Defesa"],correct:0},
-{question:"Prescrição extingue:",options:["Crime","Punibilidade","Dolo","Tipicidade"],correct:1},
-{question:"Imputabilidade exige:",options:["Maioridade","Menoridade","Erro","Coação"],correct:0},
-{question:"Crimes hediondos têm:",options:["Fiança","Graça restrita","Anistia livre","Nada"],correct:1},
-{question:"Consumação ocorre quando:",options:["Completa elementos","Planeja","Erra","Desiste"],correct:0},
-{question:"Ação penal pública é promovida pelo:",options:["Juiz","MP","Delegado","Prefeito"],correct:1},
-{question:"Pena de multa é:",options:["Privativa","Restritiva","Pecuniária","Capital"],correct:2},
-{question:"Erro de tipo exclui:",options:["Dolo","Culpa","Crime","Ação"],correct:0},
-{question:"Crime continuado envolve:",options:["Pluralidade de ações","Uma ação","Erro","Negligência"],correct:0}
-],
+            const selectedAnswer = parseInt(selectedOption.value);
+            if (selectedAnswer === questions[currentQuestion].correct) {
+                score++;
+            }
 
-Informatica: [
-{question:"CPU significa:",options:["Central Process Unit","Central Processing Unit","Control Process Unit","Computer Personal Unit"],correct:1},
-{question:"Phishing é:",options:["Backup","Engenharia social","Firewall","Antivírus"],correct:1},
-{question:"Firewall serve para:",options:["Editar texto","Proteger rede","Criar vírus","Formatar"],correct:1},
-{question:"Extensão .exe é:",options:["Imagem","Executável","Texto","Áudio"],correct:1},
-{question:"RAM é memória:",options:["Permanente","Volátil","Secundária","Óptica"],correct:1},
-{question:"Sistema operacional:",options:["Word","Windows","Excel","Chrome"],correct:1},
-{question:"Backup é:",options:["Cópia de segurança","Vírus","Erro","Falha"],correct:0},
-{question:"HTTPS indica:",options:["Conexão segura","Erro","Rede interna","Firewall"],correct:0},
-{question:"Malware é:",options:["Programa malicioso","Antivírus","Sistema","Backup"],correct:0},
-{question:"LAN é rede:",options:["Local","Global","Virtual","Óptica"],correct:0},
-{question:"IP identifica:",options:["Usuário","Rede","Dispositivo","Programa"],correct:2},
-{question:"Nuvem refere-se a:",options:["Internet","Servidor local","HD","CPU"],correct:0},
-{question:"Excel é usado para:",options:["Texto","Planilhas","Imagem","Vírus"],correct:1},
-{question:"Ctrl+C copia:",options:["Recorta","Cola","Copia","Apaga"],correct:2},
-{question:"PDF é formato:",options:["Editável","Documento","Vídeo","Áudio"],correct:1},
-{question:"Antivírus protege contra:",options:["Ataques","Texto","Planilhas","Backup"],correct:0},
-{question:"Wi-Fi é tecnologia:",options:["Cabeada","Sem fio","Óptica","Analógica"],correct:1},
-{question:"Spam é:",options:["Email indesejado","Firewall","Rede","Backup"],correct:0},
-{question:"Criptografia serve para:",options:["Proteger dados","Apagar dados","Copiar","Formatar"],correct:0},
-{question:"URL é:",options:["Endereço web","Vírus","Programa","Firewall"],correct:0}
-],
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
 
-RLM: [
-{question:"Se todo A é B e todo B é C:",options:["Todo A é C","Todo C é A","Nenhum A é C","Nenhum B é C"],correct:0},
-{question:"2+2x2 =",options:["6","8","4","2"],correct:0},
-{question:"Sequência 2,4,8,16:",options:["18","24","32","30"],correct:2},
-{question:"Proposição é:",options:["Frase declarativa","Pergunta","Ordem","Exclamação"],correct:0},
-{question:"Negação de verdadeiro é:",options:["Verdadeiro","Falso","Nulo","Erro"],correct:1},
-{question:"Se p→q e p é verdadeiro:",options:["q verdadeiro","q falso","p falso","Erro"],correct:0},
-{question:"Conjunção é representada por:",options:["∨","∧","→","↔"],correct:1},
-{question:"Disjunção é:",options:["E","OU","SE","ENTÃO"],correct:1},
-{question:"Tabela verdade analisa:",options:["Valores lógicos","Números","Texto","Imagem"],correct:0},
-{question:"20% de 100 =",options:["10","20","30","40"],correct:1},
-{question:"MMC de 4 e 6:",options:["12","24","6","8"],correct:0},
-{question:"MDC de 8 e 12:",options:["4","2","6","8"],correct:0},
-{question:"Razão 2:4 simplifica para:",options:["1:2","2:1","4:2","2:8"],correct:0},
-{question:"Probabilidade varia de:",options:["0 a 1","1 a 10","0 a 100","-1 a 1"],correct:0},
-{question:"50% equivale a:",options:["1/2","1/3","1/4","2/3"],correct:0},
-{question:"Equação 2x=10:",options:["2","5","10","20"],correct:1},
-{question:"Se hoje é segunda, daqui 3 dias será:",options:["Quarta","Quinta","Sexta","Domingo"],correct:1},
-{question:"Número primo:",options:["4","6","9","7"],correct:3},
-{question:"Média de 2,4,6:",options:["4","3","6","2"],correct:0},
-{question:"Progressão 1,3,5:",options:["6","7","8","9"],correct:1}
-]
+        // Função para exibir o resultado final
+        function showResult() {
+            document.getElementById('quiz').style.display = 'none';
+            const resultText = `Você acertou ${score} de ${questions.length} questões.`;
+            document.getElementById('result-text').textContent = resultText;
+            document.getElementById('result').style.display = 'block';
+        }
 
-};
+        // Função para reiniciar o quiz
+        function reloadQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            shuffleQuestions(questions); // Embaralha as perguntas
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('quiz').style.display = 'block';
+            loadQuestion();
+        }
 
-
-/* ============================
-VARIÁVEIS
-============================ */
-
-let quizQuestions=[];
-let currentQuestion=0;
-let score=0;
-let timer;
-let timeLeft=0;
-let disciplinaAtual="";
-
-/* ============================
-INICIAR DISCIPLINA
-============================ */
-
-function startQuiz(disciplina){
-disciplinaAtual=disciplina;
-quizQuestions=[...questions[disciplina]];
-iniciarJogo(quizQuestions.length * 20);
-}
-
-/* ============================
-MODO SIMULADO (MISTURA TUDO)
-============================ */
-
-function startSimulado(){
-disciplinaAtual="Simulado Geral";
-quizQuestions=[];
-Object.values(questions).forEach(arr=>{
-quizQuestions=quizQuestions.concat(arr);
-});
-quizQuestions.sort(()=>Math.random()-0.5);
-iniciarJogo(quizQuestions.length * 20);
-}
-
-/* ============================
-INICIAR JOGO
-============================ */
-
-function iniciarJogo(tempoTotal){
-document.getElementById("menu").style.display="none";
-document.getElementById("quizArea").style.display="block";
-document.getElementById("resultado").innerHTML="";
-
-currentQuestion=0;
-score=0;
-timeLeft=tempoTotal;
-
-startTimer();
-loadQuestion();
-}
-
-/* ============================
-TIMER
-============================ */
-
-function startTimer(){
-timer=setInterval(()=>{
-timeLeft--;
-document.getElementById("timer").innerText="Tempo: "+timeLeft+"s";
-if(timeLeft<=0){ endQuiz(); }
-},1000);
-}
-
-/* ============================
-CARREGAR QUESTÃO
-============================ */
-
-function loadQuestion(){
-let q=quizQuestions[currentQuestion];
-document.getElementById("score").innerText="Pontuação: "+score;
-document.getElementById("question").innerText=q.question;
-
-let optionsDiv=document.getElementById("options");
-optionsDiv.innerHTML="";
-
-q.options.forEach((option,index)=>{
-let btn=document.createElement("button");
-btn.innerText=option;
-btn.className="option-btn";
-btn.onclick=()=>checkAnswer(index);
-optionsDiv.appendChild(btn);
-});
-}
-
-/* ============================
-CHECAR RESPOSTA
-============================ */
-
-function checkAnswer(index){
-if(index===quizQuestions[currentQuestion].correct){
-score+=10;
-}
-currentQuestion++;
-if(currentQuestion<quizQuestions.length){
-loadQuestion();
-}else{
-endQuiz();
-}
-}
-
-/* ============================
-FINALIZAR
-============================ */
-
-function endQuiz(){
-clearInterval(timer);
-document.getElementById("quizArea").style.display="none";
-
-let percentual=Math.round((score/(quizQuestions.length*10))*100);
-
-document.getElementById("resultado").innerHTML=
-`<div class="card">
-<h2>Fim do ${disciplinaAtual}</h2>
-<p>Pontuação: ${score}</p>
-<p>Aproveitamento: ${percentual}%</p>
-<button onclick="location.reload()">Voltar</button>
-</div>`;
-
-salvarEstatisticas(disciplinaAtual,percentual);
-salvarRanking(score);
-mostrarRanking();
-mostrarEstatisticas();
-}
-
-/* ============================
-RANKING
-============================ */
-
-function salvarRanking(score){
-let ranking=JSON.parse(localStorage.getItem("rankingPF"))||[];
-ranking.push(score);
-ranking.sort((a,b)=>b-a);
-ranking=ranking.slice(0,5);
-localStorage.setItem("rankingPF",JSON.stringify(ranking));
-}
-
-function mostrarRanking(){
-let ranking=JSON.parse(localStorage.getItem("rankingPF"))||[];
-let div=document.getElementById("ranking");
-div.innerHTML="<div class='card'><h3>🏆 Ranking</h3>";
-ranking.forEach((s,i)=>{
-div.innerHTML+=`<p>${i+1}º - ${s} pts</p>`;
-});
-div.innerHTML+="</div>";
-}
-
-/* ============================
-ESTATÍSTICAS POR DISCIPLINA
-============================ */
-
-function salvarEstatisticas(disciplina,percentual){
-let stats=JSON.parse(localStorage.getItem("statsPF"))||{};
-if(!stats[disciplina]) stats[disciplina]=[];
-stats[disciplina].push(percentual);
-localStorage.setItem("statsPF",JSON.stringify(stats));
-}
-
-function mostrarEstatisticas(){
-let stats=JSON.parse(localStorage.getItem("statsPF"))||{};
-let div=document.getElementById("estatisticas");
-div.innerHTML="<div class='card'><h3>📊 Estatísticas</h3>";
-
-for(let disc in stats){
-let media=Math.round(stats[disc].reduce((a,b)=>a+b)/stats[disc].length);
-div.innerHTML+=`<p>${disc}: Média ${media}%</p>`;
-}
-
-div.innerHTML+="</div>";
-}
-
-mostrarRanking();
-mostrarEstatisticas();
-
-</script>
+        // Inicializar o quiz
+        shuffleQuestions(questions); // Embaralha as perguntas
+        loadQuestion();
+        
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(reg => console.log('✅ Service Worker registrado', reg))
+        .catch(err => console.error('❌ Erro ao registrar o SW:', err));
+    });
+            }
+        
+    </script>
 
 </body>
 </html>
