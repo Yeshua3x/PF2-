@@ -88,28 +88,123 @@ Estrutura pronta para 100+
 
 const questions = {
 
-Portugues:[
-{question:"Assinale a alternativa correta.",options:["Houveram erros","Houve erros","Existiram erro","Fazem dois anos"],correct:1},
-{question:"Crase é usada:",options:["Antes de verbo","Antes de palavra masculina","Antes de palavra feminina específica","Nunca"],correct:2},
-{question:"Concordância correta:",options:["Os aluno chegou","Os alunos chegaram","Os aluno chegaram","O alunos chegou"],correct:1}
+Portugues: [
+{question:"Assinale a frase correta.",options:["Houveram falhas","Houve falhas","Existiu problemas","Fazem anos"],correct:1},
+{question:"A crase ocorre em:",options:["Vou à escola","Vou a escola","Vou ao escola","Vou à estudar"],correct:0},
+{question:"Plural correto de cidadão:",options:["Cidadões","Cidadãos","Cidadães","Cidadãos"],correct:1},
+{question:"Concordância correta:",options:["Os aluno estudam","Os alunos estudam","Os aluno estuda","O alunos estudam"],correct:1},
+{question:"Sinônimo de 'iminente':",options:["Distante","Próximo","Passado","Antigo"],correct:1},
+{question:"Antônimo de 'benevolente':",options:["Bondoso","Caridoso","Maldoso","Gentil"],correct:2},
+{question:"Uso correto da vírgula:",options:["João foi ao mercado e comprou pão.","João foi ao mercado, e comprou pão.","João, foi ao mercado e comprou pão.","João foi ao mercado e, comprou pão."],correct:0},
+{question:"Regência correta:",options:["Assistir o filme","Assistir ao filme","Assistir no filme","Assistir filme"],correct:1},
+{question:"Ortografia correta:",options:["Excessão","Exceção","Excessão","Exessão"],correct:1},
+{question:"Uso correto do porquê:",options:["Por que você saiu?","Porque você saiu?","Por quê você saiu.","Porquê você saiu?"],correct:0},
+{question:"Figura de linguagem que compara:",options:["Metáfora","Hipérbole","Comparação","Ironia"],correct:2},
+{question:"Plural de mau:",options:["Maus","Males","Mauzes","Mauses"],correct:0},
+{question:"Verbo no futuro:",options:["Estudou","Estuda","Estudará","Estudava"],correct:2},
+{question:"Classe de palavra 'rapidamente':",options:["Adjetivo","Advérbio","Substantivo","Pronome"],correct:1},
+{question:"Sujeito da frase pode ser:",options:["Apenas simples","Apenas composto","Simples ou composto","Somente oculto"],correct:2},
+{question:"Conjunção adversativa:",options:["Porque","Mas","Logo","Portanto"],correct:1},
+{question:"Pronome pessoal:",options:["Mesa","Ele","Bonito","Ontem"],correct:1},
+{question:"Tempo verbal passado:",options:["Cantou","Canta","Cantará","Cantando"],correct:0},
+{question:"Uso correto de 'há':",options:["Há dois anos","A dois anos","Há dois ano","A dois ano"],correct:0},
+{question:"Acentuação correta:",options:["Heroi","Herói","Heroí","Héroi"],correct:1}
 ],
 
-Constitucional:[
-{question:"Compete à Polícia Federal:",options:["Julgar crimes","Exercer polícia judiciária da União","Policiamento ostensivo","Legislar"],correct:1},
-{question:"A Constituição é:",options:["Lei ordinária","Lei complementar","Norma suprema","Decreto"],correct:2}
+Constitucional: [
+{question:"A Constituição é:",options:["Lei ordinária","Norma suprema","Decreto","Portaria"],correct:1},
+{question:"Os direitos fundamentais estão no artigo:",options:["5º","37","144","1º"],correct:0},
+{question:"Compete à PF:",options:["Julgar","Policiamento ostensivo","Polícia judiciária da União","Legislar"],correct:2},
+{question:"Poder Executivo é exercido pelo:",options:["STF","Presidente","Senado","Câmara"],correct:1},
+{question:"Mandado de segurança protege:",options:["Direito líquido e certo","Crime","Patrimônio público","Contrato"],correct:0},
+{question:"Habeas corpus protege:",options:["Patrimônio","Liberdade","Posse","Contrato"],correct:1},
+{question:"Cláusulas pétreas podem ser:",options:["Alteradas","Abolidas","Não abolidas","Ignoradas"],correct:2},
+{question:"Forma de governo do Brasil:",options:["Monarquia","República","Ditadura","Parlamentarismo"],correct:1},
+{question:"Sistema de governo:",options:["Parlamentar","Presidencialista","Monárquico","Oligárquico"],correct:1},
+{question:"Art. 144 trata da:",options:["Educação","Saúde","Segurança pública","Economia"],correct:2},
+{question:"O STF é órgão do:",options:["Executivo","Legislativo","Judiciário","Militar"],correct:2},
+{question:"Direitos sociais estão no art:",options:["6º","5º","37","144"],correct:0},
+{question:"Intervenção federal é competência:",options:["Governador","Prefeito","Presidente","Juiz"],correct:2},
+{question:"Controle de constitucionalidade é feito pelo:",options:["STF","Prefeito","Delegado","Polícia"],correct:0},
+{question:"Emenda constitucional exige:",options:["Maioria simples","Maioria absoluta","3/5","Unanimidade"],correct:2},
+{question:"Nacionalidade pode ser:",options:["Primária ou secundária","Simples","Única","Relativa"],correct:0},
+{question:"Direitos políticos envolvem:",options:["Votar","Comprar","Vender","Estudar"],correct:0},
+{question:"Ministros do STF são indicados pelo:",options:["Senado","Presidente","Câmara","STJ"],correct:1},
+{question:"Separação dos poderes é teoria de:",options:["Kelsen","Montesquieu","Rousseau","Locke"],correct:1},
+{question:"Princípios da administração estão no art:",options:["5º","37","144","1º"],correct:1}
 ],
 
-Penal:[
-{question:"Crime é:",options:["Fato típico, ilícito e culpável","Qualquer conduta","Apenas dolo","Somente culpa"],correct:0},
-{question:"Dolo é:",options:["Vontade consciente","Erro","Negligência","Imprudência"],correct:0}
+Penal: [
+{question:"Crime é:",options:["Fato típico ilícito e culpável","Qualquer ato","Erro","Imprudência"],correct:0},
+{question:"Dolo é:",options:["Vontade consciente","Erro","Negligência","Imperícia"],correct:0},
+{question:"Culpa ocorre quando há:",options:["Intenção","Negligência","Vontade","Planejamento"],correct:1},
+{question:"Homicídio está no art:",options:["121","155","157","33"],correct:0},
+{question:"Furto é:",options:["Subtrair coisa alheia","Matar alguém","Fraudar","Corromper"],correct:0},
+{question:"Roubo envolve:",options:["Violência","Apenas subtração","Erro","Negligência"],correct:0},
+{question:"Legítima defesa exclui:",options:["Tipicidade","Ilicitude","Culpabilidade","Dolo"],correct:1},
+{question:"Tentativa ocorre quando:",options:["Crime se consuma","Não inicia","Não consuma por circunstâncias alheias","Há erro"],correct:2},
+{question:"Pena pode ser:",options:["Privativa de liberdade","Somente multa","Advertência","Suspensão política"],correct:0},
+{question:"Concurso de pessoas envolve:",options:["1 pessoa","2 ou mais","Juiz","Delegado"],correct:1},
+{question:"Extorsão é art:",options:["157","158","155","121"],correct:1},
+{question:"Reclusão é:",options:["Pena","Crime","Erro","Defesa"],correct:0},
+{question:"Prescrição extingue:",options:["Crime","Punibilidade","Dolo","Tipicidade"],correct:1},
+{question:"Imputabilidade exige:",options:["Maioridade","Menoridade","Erro","Coação"],correct:0},
+{question:"Crimes hediondos têm:",options:["Fiança","Graça restrita","Anistia livre","Nada"],correct:1},
+{question:"Consumação ocorre quando:",options:["Completa elementos","Planeja","Erra","Desiste"],correct:0},
+{question:"Ação penal pública é promovida pelo:",options:["Juiz","MP","Delegado","Prefeito"],correct:1},
+{question:"Pena de multa é:",options:["Privativa","Restritiva","Pecuniária","Capital"],correct:2},
+{question:"Erro de tipo exclui:",options:["Dolo","Culpa","Crime","Ação"],correct:0},
+{question:"Crime continuado envolve:",options:["Pluralidade de ações","Uma ação","Erro","Negligência"],correct:0}
 ],
 
-Informatica:[
-{question:"Phishing é:",options:["Ataque de engenharia social","Backup","Firewall","Antivírus"],correct:0},
-{question:"Firewall serve para:",options:["Editar texto","Proteger rede","Formatar PC","Criar vírus"],correct:1}
+Informatica: [
+{question:"CPU significa:",options:["Central Process Unit","Central Processing Unit","Control Process Unit","Computer Personal Unit"],correct:1},
+{question:"Phishing é:",options:["Backup","Engenharia social","Firewall","Antivírus"],correct:1},
+{question:"Firewall serve para:",options:["Editar texto","Proteger rede","Criar vírus","Formatar"],correct:1},
+{question:"Extensão .exe é:",options:["Imagem","Executável","Texto","Áudio"],correct:1},
+{question:"RAM é memória:",options:["Permanente","Volátil","Secundária","Óptica"],correct:1},
+{question:"Sistema operacional:",options:["Word","Windows","Excel","Chrome"],correct:1},
+{question:"Backup é:",options:["Cópia de segurança","Vírus","Erro","Falha"],correct:0},
+{question:"HTTPS indica:",options:["Conexão segura","Erro","Rede interna","Firewall"],correct:0},
+{question:"Malware é:",options:["Programa malicioso","Antivírus","Sistema","Backup"],correct:0},
+{question:"LAN é rede:",options:["Local","Global","Virtual","Óptica"],correct:0},
+{question:"IP identifica:",options:["Usuário","Rede","Dispositivo","Programa"],correct:2},
+{question:"Nuvem refere-se a:",options:["Internet","Servidor local","HD","CPU"],correct:0},
+{question:"Excel é usado para:",options:["Texto","Planilhas","Imagem","Vírus"],correct:1},
+{question:"Ctrl+C copia:",options:["Recorta","Cola","Copia","Apaga"],correct:2},
+{question:"PDF é formato:",options:["Editável","Documento","Vídeo","Áudio"],correct:1},
+{question:"Antivírus protege contra:",options:["Ataques","Texto","Planilhas","Backup"],correct:0},
+{question:"Wi-Fi é tecnologia:",options:["Cabeada","Sem fio","Óptica","Analógica"],correct:1},
+{question:"Spam é:",options:["Email indesejado","Firewall","Rede","Backup"],correct:0},
+{question:"Criptografia serve para:",options:["Proteger dados","Apagar dados","Copiar","Formatar"],correct:0},
+{question:"URL é:",options:["Endereço web","Vírus","Programa","Firewall"],correct:0}
+],
+
+RLM: [
+{question:"Se todo A é B e todo B é C:",options:["Todo A é C","Todo C é A","Nenhum A é C","Nenhum B é C"],correct:0},
+{question:"2+2x2 =",options:["6","8","4","2"],correct:0},
+{question:"Sequência 2,4,8,16:",options:["18","24","32","30"],correct:2},
+{question:"Proposição é:",options:["Frase declarativa","Pergunta","Ordem","Exclamação"],correct:0},
+{question:"Negação de verdadeiro é:",options:["Verdadeiro","Falso","Nulo","Erro"],correct:1},
+{question:"Se p→q e p é verdadeiro:",options:["q verdadeiro","q falso","p falso","Erro"],correct:0},
+{question:"Conjunção é representada por:",options:["∨","∧","→","↔"],correct:1},
+{question:"Disjunção é:",options:["E","OU","SE","ENTÃO"],correct:1},
+{question:"Tabela verdade analisa:",options:["Valores lógicos","Números","Texto","Imagem"],correct:0},
+{question:"20% de 100 =",options:["10","20","30","40"],correct:1},
+{question:"MMC de 4 e 6:",options:["12","24","6","8"],correct:0},
+{question:"MDC de 8 e 12:",options:["4","2","6","8"],correct:0},
+{question:"Razão 2:4 simplifica para:",options:["1:2","2:1","4:2","2:8"],correct:0},
+{question:"Probabilidade varia de:",options:["0 a 1","1 a 10","0 a 100","-1 a 1"],correct:0},
+{question:"50% equivale a:",options:["1/2","1/3","1/4","2/3"],correct:0},
+{question:"Equação 2x=10:",options:["2","5","10","20"],correct:1},
+{question:"Se hoje é segunda, daqui 3 dias será:",options:["Quarta","Quinta","Sexta","Domingo"],correct:1},
+{question:"Número primo:",options:["4","6","9","7"],correct:3},
+{question:"Média de 2,4,6:",options:["4","3","6","2"],correct:0},
+{question:"Progressão 1,3,5:",options:["6","7","8","9"],correct:1}
 ]
 
 };
+
 
 /* ============================
 VARIÁVEIS
